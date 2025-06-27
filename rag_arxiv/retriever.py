@@ -1,17 +1,12 @@
+# rag_arxiv/retriever.py
 import arxiv
-
-import arxiv
-from ragflow_sdk.parsers.pdf import Pdf
-
-
-
-
+from .utils import extract_text_from_pdf_url
 
 class Retriever:
     def __init__(self, max_results: int = 5):
         self.max_results = max_results
 
-    def fetch_with_fulltext(self, query: str, extract_text: bool = True):
+    def fetch(self, query: str, extract_text: bool = False, max_pdf_pages: int = 5):
         search = arxiv.Search(query=query, max_results=self.max_results)
         results = []
 
@@ -25,12 +20,8 @@ class Retriever:
                 "entry_id": result.entry_id
             }
 
-            if extract_text and result.pdf_url:
-                try:
-                    pdf = Pdf.from_url(result.pdf_url)
-                    entry["fulltext_chunks"] = pdf.chunk()
-                except Exception as e:
-                    entry["fulltext_chunks"] = [f"[PDF extraction failed: {e}]"]
+            if extract_text:
+                entry["fulltext"] = extract_text_from_pdf_url(result.pdf_url, max_pages=max_pdf_pages)
 
             results.append(entry)
 
