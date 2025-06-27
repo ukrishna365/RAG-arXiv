@@ -1,21 +1,20 @@
 # rag_arxiv/rag_pipeline.py
-
 import os
-import openai
 from dotenv import load_dotenv
+from openai import OpenAI
 
 from rag_arxiv.embedder import Embedder
 from rag_arxiv.vector_store import VectorStore
 
 class RAGPipeline:
-    def __init__(self, embedder: Embedder, vector_store: VectorStore, model="gpt-3.5-turbo"):
+    def __init__(self, embedder: Embedder, vector_store: VectorStore, model="gpt-4o"):
         self.embedder = embedder
         self.vector_store = vector_store
         self.model = model
 
         # Load API key from .env
         load_dotenv()
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        self.client = OpenAI()  # uses OPENAI_API_KEY from env
 
     def query(self, question: str, top_k: int = 3) -> str:
         # Embed the question
@@ -35,8 +34,8 @@ class RAGPipeline:
             "Answer:"
         )
 
-        # Query OpenAI
-        response = openai.ChatCompletion.create(
+        # Query OpenAI (new client)
+        response = self.client.chat.completions.create(
             model=self.model,
             messages=[
                 {"role": "system", "content": "You are a helpful academic assistant."},
@@ -45,4 +44,4 @@ class RAGPipeline:
             temperature=0.7,
         )
 
-        return response.choices[0].message["content"].strip()
+        return response.choices[0].message.content.strip()

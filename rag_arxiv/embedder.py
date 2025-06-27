@@ -20,6 +20,9 @@ class Embedder:
     def embed_chunks(self, chunks: list[str]) -> list[list[float]]:
         return self.model.encode(chunks, convert_to_numpy=True).tolist()
 
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        return self.embed_chunks(texts)
+
     def process(self, text: str, chunk_size: int = None, chunk_overlap: int = None) -> tuple[list[str], list[list[float]]]:
         chunks = self.chunk_text(text, chunk_size, chunk_overlap)
         embeddings = self.embed_chunks(chunks)
