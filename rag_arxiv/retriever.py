@@ -1,7 +1,11 @@
 import arxiv
 
 import arxiv
-from ragflow.preprocessing.parsers import Pdf
+from ragflow_sdk.parsers.pdf import Pdf
+
+
+
+
 
 class Retriever:
     def __init__(self, max_results: int = 5):
