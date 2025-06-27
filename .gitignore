@@ -4,3 +4,5 @@ venv/
 
 # Ignore env
 .env
+
+*.egg-info/
