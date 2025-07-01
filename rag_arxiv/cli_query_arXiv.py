@@ -1,5 +1,6 @@
 # cli_query_arxiv.py
 
+import time
 from rag_arxiv.query_arXiv import query_arxiv_fulltext
 
 def main():
@@ -14,14 +15,17 @@ def main():
 
     print("\nProcessing your query... This may take a moment.\n")
 
+    start_time = time.time()
     answer = query_arxiv_fulltext(
         question,
         num_papers=num_papers,
         max_pages=max_pages
     )
+    elapsed_time = time.time() - start_time
 
     print("\n== Answer ==")
     print(answer)
+    print(f"\nTime taken: {elapsed_time:.2f} seconds")
 
 if __name__ == "__main__":
     main()

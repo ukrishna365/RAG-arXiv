@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 class Embedder:
-    def __init__(self, model_name="paraphrase-MiniLM-L3-v2", chunk_size=250, chunk_overlap=50):
+    def __init__(self, model_name="paraphrase-MiniLM-L3-v2", chunk_size=225, chunk_overlap=50):
         self.model = SentenceTransformer(model_name)
         self.default_chunk_size = chunk_size
         self.default_chunk_overlap = chunk_overlap
@@ -12,7 +12,7 @@ class Embedder:
         chunk_size = chunk_size or self.default_chunk_size
         chunk_overlap = chunk_overlap or self.default_chunk_overlap
         splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size,
+            chunk_size=chunk_size, 
             chunk_overlap=chunk_overlap
         )
         return splitter.split_text(text)
