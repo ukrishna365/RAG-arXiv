@@ -3,10 +3,10 @@ import arxiv
 from .utils import extract_text_from_pdf_url
 
 class Retriever:
-    def __init__(self, max_results: int = 5):
+    def __init__(self, max_results: int = 10):
         self.max_results = max_results
 
-    def fetch(self, query: str, extract_text: bool = False, max_pdf_pages: int = 5):
+    def fetch(self, query: str, extract_text: bool = False, max_pdf_pages: int = 10):
         search = arxiv.Search(query=query, max_results=self.max_results)
         results = []
 
