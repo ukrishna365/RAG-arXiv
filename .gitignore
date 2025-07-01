@@ -1,8 +1,13 @@
-# Ignore venvs
+# Ignore venv
 venv/
 .venv/
 
 # Ignore env
 .env
 
+# Ignore Python cache and build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 *.egg-info/
