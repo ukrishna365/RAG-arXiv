@@ -23,7 +23,6 @@ Install the required packages:
 pip install -r requirements.txt
 ```
 
-Also make sure you have `PyMuPDF` and other dependencies installed for PDF parsing.
 
 ---
 
@@ -63,7 +62,7 @@ Max pages per PDF [default 5]: 10
 [Grounded explanation based on retrieved papers]
 
 Articles/papers used:
-1. A Comprehensive Survey of Foundation Models in Medicine — http://arxiv.org/pdf/2406.10729v3
+1. ...
 2. ...
 Time taken: 42.78 seconds
 ```
@@ -94,7 +93,3 @@ rag_arxiv/
 Includes test scripts in `/tests` and an interactive CLI in `cli_query_arxiv.py`.
 
 ---
-
-## License
-
-MIT License — free to use, modify, and extend.
