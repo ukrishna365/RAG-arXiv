@@ -3,12 +3,21 @@ import faiss
 import numpy as np
 
 class VectorStore:
-    def __init__(self, dim: int = 384):
-        self.index = faiss.IndexFlatL2(dim)
+    def __init__(self, dim: int = None):
+        self.index = None
         self.metadata = []
+        self.dim = dim
 
     def add(self, embeddings: list[list[float]], metadatas: list[dict]):
         vectors = np.array(embeddings).astype("float32")
+        if self.index is None:
+            # Infer dimension from first batch
+            self.dim = vectors.shape[1]
+            self.index = faiss.IndexFlatL2(self.dim)
+        else:
+            # Ensure new vectors match existing dimension
+            if vectors.shape[1] != self.dim:
+                raise ValueError(f"Embedding dimension mismatch: expected {self.dim}, got {vectors.shape[1]}")
         self.index.add(vectors)
         self.metadata.extend(metadatas)
 

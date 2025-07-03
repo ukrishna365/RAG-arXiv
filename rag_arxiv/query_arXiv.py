@@ -39,6 +39,9 @@ def query_arxiv_fulltext(question: str, num_papers=10, max_pages=10, max_tokens_
         metadatas = [{"chunk": t, "source": p["title"]} for t, p in zip(texts, filtered_papers)]
         docs = texts
 
+    if not docs:
+        return "No text could be extracted from the retrieved papers. Try a different query."
+
     # Estimate total token count
     total_words = sum(len(doc.split()) for doc in docs)
     estimated_tokens = int(total_words / 0.75)
