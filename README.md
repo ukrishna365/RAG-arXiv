@@ -12,7 +12,6 @@ This project combines vector-based semantic search with large language models (L
 - **Chunking & Embedding:** Splits text into overlapping chunks and generates embeddings using `paraphrase-MiniLM-L3-v2` for efficiency.
 - **FAISS Vector Store:** Enables fast similarity search to find the most relevant document chunks.
 - **OpenAI RAG Generation:** Prompts GPT-4o using retrieved chunks as context to ensure answers are grounded in actual arXiv papers.
-- **.env API Key Handling:** Keeps OpenAI keys secure and out of the codebase.
 
 ---
 
